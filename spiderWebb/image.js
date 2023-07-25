@@ -22,7 +22,7 @@ const clarifai = (clarifaiImage) => {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Authorization': 'Key ' + '5e505890479a46c5a9c71c5be5ba1e70'
+            'Authorization': 'Key ' + process.env.API_KEY
         },
         body: raw
     };
