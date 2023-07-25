@@ -22,7 +22,9 @@ const signin = require("./spiderWebb/signin");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://face-detector-e2hi.onrender.com/'
+}));
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -37,5 +39,5 @@ app.put("/image", (req, res) => { image.handleImage(req, res, req.body.id, knex)
 app.post("/imageUrl", (req, res) => { image.handleApiCall(req, res)})
 
 app.listen(process.env.PORT || 5172, () => {
-  console.log(`listening on port ${process.env.PORT}`);
+  console.log(`Currently listening on port ${process.env.PORT}`);
 });
