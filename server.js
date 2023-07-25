@@ -20,9 +20,7 @@ const signin = require("./spiderWebb/signin");
 
 const app = express();
 
-app.use(cors({
-    origin: "https://face-detector-e2hi.onrender.com/"
-}));
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
