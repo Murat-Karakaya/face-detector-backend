@@ -4,10 +4,12 @@ const cors = require("cors");
 const knex = require('knex')({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
-      user : 'postgres',
-      password : '123456',
-      database : 'face-detector'
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+      host : process.env.DATABASE_HOST,
+      user : process.env.DATABASE_USER,
+      password : process.env.DATABASE_PW,
+      database : process.env.DATABASE_DB
     }
   });
 
