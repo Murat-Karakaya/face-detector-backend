@@ -28,15 +28,13 @@ app.use(cors({
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("hello")
-  //knex.select('name', 'entries', 'joined').from('users').then(data => res.json(data))
+  res.send("hello, this is the API of my face detection app");
 });
 
 app.post("/signin", signin.handleSignin(knex, bcrypt));
 app.post("/register", (req, res) => { register.handleRegister(req, res, knex, bcrypt) });
-app.get("/profile/:id", (req, res) => { profile.handleProfile(req, res, req.params.id, knex)})
-app.put("/image", (req, res) => { image.handleImage(req, res, req.body.id, knex)});
-app.post("/imageUrl", (req, res) => { image.handleApiCall(req, res)})
+app.get("/profile/:id", (req, res) => { profile.handleProfile(req, res, req.params.id, knex)});
+app.post("/imageUrl", (req, res) => { image.handleImage(req, res, req.body.name, req.body.email, req.body.id, knex)});
 
 app.listen(process.env.PORT || 5172, () => {
   console.log(`Currently listening on port ${process.env.PORT}`);

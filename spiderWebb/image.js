@@ -40,32 +40,25 @@ const clarifai = (clarifaiImage) => {
 
 }
 
-const handleApiCall = (req, res) => {
-    clarifai(req.body.input)
-        .then(data => {
-            res.json(data)
-        })
-        .catch(err => res.status(400).json("Unable to work with API"))
-}
-
-
-
-
-
 /*////////////////////////////////////////*/
 
-const handleImage = (req, res, id, knex) => {
-    //const { id } = req.body;
-    knex('users').where('id', '=', id)
-    .increment('entries', 1)
-    .returning('entries')
-    .then(entries => {
-        res.json(entries[0].entries);
-    })
-    .catch(err => res.status(400).json('unable to get entries'));
+const handleImage = (req, res, name, email, id, knex) => {
+    clarifai(req.body.input)
+        .then(data => {
+            knex('users')
+                .where({id: id, name: name, email: email})
+                .increment('entries', 1)
+                .returning('entries')
+                .then(entries => {
+                    res.json({entries: entries[0].entries, data});
+                })
+                .catch(err => res.status(400).json('failed to work with database.'));
+
+        })
+        .catch(err => res.status(400).json('unable to work properly')); 
+
 }
 
 module.exports = {
-    handleApiCall,
     handleImage
 }
